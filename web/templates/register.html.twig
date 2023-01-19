@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}自助注册{% endblock %}
+
+{% block body %}
+	<div class="big-one center">
+		<h1>自助注册表单</h1>
+
+		<form method="POST" class="pure-form pure-form-stacked text-align-clear form-center" id="form-zizhureg">
+			<fieldset>
+				<p>请先选择您的身份……</p>
+				<p>
+					{% if app.environment == 'dev' %}
+					<input type="radio" id="radio-role-guest" name="role" value="guest" checked /> 访客
+					&nbsp;
+					{% endif %}<input type="radio" id="radio-role-student" name="role" value="student" checked /> 学生
+					&nbsp;
+					<input type="radio" id="radio-role-staff" name="role" value="staff" /> 教职工
+				</p>
+				<label for="xuegonghao" id="label-xuegonghao"></label>
+				<input type="number" id="xuegonghao" name="xgh" />
+				<span class="pure-form-message">11位数字</span>
+
+				<label for="username" id="label-username">用户名</label>
+				<input type="text" id="username" name="username" />
+				<span class="pure-form-message">6-20位</span>
+
+				<label for="password" id="label-password">密码</label>
+				<input type="password" id="password" name="password" />
+				<span class="pure-form-message">6-30位，请牢记</span>
+
+				<label for="password-again" id="label-password-again">确认密码</label>
+				<input type="password" id="password-again" />
+				<span class="pure-form-message">重新输入一次上面的密码</span>
+
+				<br />
+				<div class="center"><input type="submit" class="pure-button pure-button-primary" value="提交" /></div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

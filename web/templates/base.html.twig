@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>{% block title %}欢迎!{% endblock %} - foobar 院新年红包研究所</title>
+        <link rel="stylesheet" href="{{ asset('assets/pure-min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('fe/app.css') }}"/>
+        {% block stylesheet %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <span id="title">foobar 院新年<span style="color: red;">红包</span>研究所</span>
+                <br />
+                <span id="subtitle">院内综合办公系统 V2.023</span>
+            </div>
+            <div id="nav">
+                this is nav
+            </div>
+            <div id="body-content">{% block body %}{% endblock %}</div>
+            <div id="footer">
+                <p><a href="https://foobar.ac.cn">foobar 院</a> 信息技术中心&copy; 2023</p>
+            </div>
+        </div>
+        <script src="{{ asset('fe/app.js') }}"></script>
+        {% block javascript %}{% endblock %}
+    </body>
+</html>

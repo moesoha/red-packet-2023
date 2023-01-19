@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="description" content="foobar院新年红包研究所">
+		<meta name="keywords" content="foobar院新年红包研究所,foobar 院新年红包研究所,foobar院">
+		<title>foobar 院新年红包研究所</title>
+		<link rel="stylesheet" href="{{ asset('assets/pure-min.css') }}"/>
+		<style>
+			html, body {
+				margin: 0;
+				padding: 0;
+				font-size: 16px;
+				font-family: Georgia, -apple-system, 'Nimbus Roman No9 L', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', 'ST Heiti', serif;
+			}
+
+			a {
+				color: #148fd7;
+				text-decoration: none;
+			}
+
+			a:hover {
+				text-decoration: underline;
+			}
+
+			#container {
+				min-height: 100vh;
+				width: 100vw;
+				box-sizing: border-box;
+				position: relative;
+			}
+
+			#container > div {
+				background-color: #eee;
+				width: 100%;
+				height: 300px;
+				margin: 0;
+				position: absolute;
+				top: 50%;
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+
+			#container > div::after {
+				display: block;
+				clear: both;
+				content: '';
+			}
+
+			.lpane, .rpane {
+				box-sizing: border-box;
+				width: 50%;
+				height: 300px;
+				padding: 10px 20px;
+			}
+
+			.lpane {
+				float: left;
+				text-align: right;
+			}
+
+			.rpane {
+				background-color: #ddd;
+				float: right;
+				text-align: left;
+			}
+
+			.random-color {
+				transition: all .3s ease;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div>
+				<div class="lpane">
+					<h1 style="margin-bottom: 0;">foobar 院新年<span style="color: red;">红包</span>研究所</h1>
+					<h2 style="margin-top: 0;">院内综合办公系统</h2>
+					<div style="display: inline-block; max-width: 380px;">
+						<marquee class="random-color">
+							<span>祝各位师生兔年快乐！寒假愉快！</span>
+						</marquee>
+						<ol style="text-align: left; font-size: .875em;">
+							<li>首次登录院内 OA 请先<a href="{{ path('auth.register') }}">【自助注册】</a>。</li>
+							<li>忘记院内 OA 密码请联系后勤中心 MonKey 主任重置。</li>
+							<li>为保障您的密码安全，请定期修改密码，但不要自己忘记它。</li>
+							<li>推荐使用谷歌浏览器访问，以获得最好体验。</li>
+						</ol>
+					</div>
+				</div>
+				<div class="rpane">
+					<br/>
+					<br/>
+					<br/>
+					<form class="pure-form pure-form-aligned">
+						<fieldset>
+							<div class="pure-control-group">
+								<label for="username">用户名</label>
+								<input type="text" id="username"/>
+								{# <span class="pure-form-message-inline">This is a required field.</span> #}
+							</div>
+							<div class="pure-control-group">
+								<label for="password">密码</label>
+								<input type="password" id="password"/>
+							</div>
+							<div class="pure-controls">
+								<button type="submit" class="pure-button pure-button-primary">登录</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<div>
+					<p style="text-align: center; font-size: .75em;"><a href="https://foobar.ac.cn">foobar 院</a> 信息技术中心&copy; 2023</p>
+				</div>
+			</div>
+		</div>
+		<script>
+			setTimeout(function () {
+				var l1 = '6789ab'.split(''), l2 = '23456789abcd'.split('');
+				var l1l = l1.length, l2l = l2.length;
+				var randColor = function () {
+					var color = '#';
+					for (var i = 0; i < 3; i++) {
+						color += l1[Math.floor(Math.random() * l1l)];
+						color += l2[Math.floor(Math.random() * l2l)];
+					}
+					return color;
+				};
+				var $s = document.getElementsByClassName('random-color');
+				for (var i = 0; i < $s.length; i++) {
+					var $ = $s[i];
+					setInterval(function () {
+						$.style.color = randColor();
+					}, 300);
+				}
+			}, 0);
+		</script>
+	</body>
+</html>
