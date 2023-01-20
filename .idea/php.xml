@@ -55,11 +55,9 @@
       <path value="$PROJECT_DIR$/web/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/web/vendor/doctrine/dbal" />
-      <path value="$PROJECT_DIR$/web/vendor/symfony/polyfill-intl-icu" />
       <path value="$PROJECT_DIR$/web/vendor/doctrine/deprecations" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/doctrine-bridge" />
       <path value="$PROJECT_DIR$/web/vendor/doctrine/doctrine-bundle" />
-      <path value="$PROJECT_DIR$/web/vendor/symfony/options-resolver" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/twig-bundle" />
       <path value="$PROJECT_DIR$/web/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/password-hasher" />
@@ -71,13 +69,13 @@
       <path value="$PROJECT_DIR$/web/vendor/symfony/polyfill-uuid" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/security-core" />
       <path value="$PROJECT_DIR$/web/vendor/doctrine/orm" />
-      <path value="$PROJECT_DIR$/web/vendor/symfony/form" />
       <path value="$PROJECT_DIR$/web/vendor/doctrine/persistence" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/security-http" />
       <path value="$PROJECT_DIR$/web/vendor/doctrine/sql-formatter" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/stopwatch" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/translation" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

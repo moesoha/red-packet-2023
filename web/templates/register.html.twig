@@ -11,19 +11,29 @@
 				<p>请先选择您的身份……</p>
 				<p>
 					{% if app.environment == 'dev' %}
-					<input type="radio" id="radio-role-guest" name="role" value="guest" checked /> 访客
+					<input type="radio" id="radio-role-keren" name="role" value="keren" checked /> 访客
 					&nbsp;
 					{% endif %}<input type="radio" id="radio-role-student" name="role" value="student" checked /> 学生
 					&nbsp;
 					<input type="radio" id="radio-role-staff" name="role" value="staff" /> 教职工
 				</p>
 				<label for="xuegonghao" id="label-xuegonghao"></label>
-				<input type="number" id="xuegonghao" name="xgh" />
+				<input type="number" id="xuegonghao" name="xgh" value="{{ xgh }}" />
 				<span class="pure-form-message">11位数字</span>
+				{% for error in errors['xgh']|default([]) %}
+					<span class="pure-form-message" style="color: red;">{{ error }}</span>
+				{% endfor %}
+
+				<label for="xghverify" id="label-xghverify">身份证后6位</label>
+				<input type="text" id="xghverify" name="xghverify" />
+				<span class="pure-form-message">您的身份证后6位以校验学工号</span>
 
 				<label for="username" id="label-username">用户名</label>
-				<input type="text" id="username" name="username" />
-				<span class="pure-form-message">6-20位</span>
+				<input type="text" id="username" name="username" value="{{ username }}" />
+				<span class="pure-form-message">4-20位，非数字开头，不包含符号</span>
+				{% for error in errors['username']|default([]) %}
+					<span class="pure-form-message" style="color: red;">{{ error }}</span>
+				{% endfor %}
 
 				<label for="password" id="label-password">密码</label>
 				<input type="password" id="password" name="password" />

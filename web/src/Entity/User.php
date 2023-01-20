@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
@@ -17,7 +18,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	private int $id;
 
 	#[ORM\Column(type: Types::STRING, length: 20, unique: true)]
-	#[Assert\Length(min: 6, max: 20)]
+	#[Assert\Length(min: 4, max: 20)]
 	private string $username;
 
 	#[ORM\Column(type: Types::STRING)]
@@ -65,10 +66,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 
 	public function getCreateTime(): \DateTimeImmutable {
 		return $this->createTime;
-	}
-
-	public function setCreateTime(\DateTimeImmutable $createTime): self {
-		$this->createTime = $createTime;
-		return $this;
 	}
 }

@@ -3,3 +3,7 @@ controllers:
         path: ../src/Controller/
         namespace: SohaJin\RedPacket2023\Controller
     type: attribute
+
+auth.logout:
+    path: /logout
+    methods: GET

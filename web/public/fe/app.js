@@ -11,9 +11,11 @@ setTimeout(function () {
 					case 'radio-role-student':
 						document.getElementById('label-xuegonghao').textContent = '学号';
 						return;
-					case 'radio-role-guest':
+					case 'radio-role-keren':
 						document.getElementById('label-xuegonghao').hidden = true;
 						document.getElementById('xuegonghao').hidden = true;
+						document.getElementById('label-xghverify').hidden = true;
+						document.getElementById('xghverify').hidden = true;
 						return;
 				}
 				return;

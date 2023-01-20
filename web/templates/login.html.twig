@@ -92,18 +92,19 @@
 					<br/>
 					<br/>
 					<br/>
-					<form class="pure-form pure-form-aligned">
+					<form method="POST" class="pure-form pure-form-aligned">
 						<fieldset>
 							<div class="pure-control-group">
 								<label for="username">用户名</label>
-								<input type="text" id="username"/>
+								<input type="text" id="username" name="username" value="{{ username }}" />
 								{# <span class="pure-form-message-inline">This is a required field.</span> #}
 							</div>
 							<div class="pure-control-group">
 								<label for="password">密码</label>
-								<input type="password" id="password"/>
+								<input type="password" id="password" name="password" />
 							</div>
 							<div class="pure-controls">
+								<input type="hidden" name="csrf" value="{{ csrf_token('authenticate') }}">
 								<button type="submit" class="pure-button pure-button-primary">登录</button>
 							</div>
 						</fieldset>
@@ -114,6 +115,8 @@
 				</div>
 			</div>
 		</div>
+		{% if app.flashes('isRegistered')|length > 0 %}<script>alert('注册成功，请使用您的账号信息登录')</script>{% endif %}
+		{% if error is not empty %}<script>alert('{{ error|e('js') }}')</script>{% endif %}
 		<script>
 			setTimeout(function () {
 				var l1 = '6789ab'.split(''), l2 = '23456789abcd'.split('');
