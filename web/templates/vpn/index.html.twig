@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VPN{% endblock %}
+
+{% block body %}
+	<div class="lr-column">
+		<div class="main">
+			<div class="fb-box">
+				<p><b>VPN 系统功能</b>：解决外网接入所内网的连接渠道，使得外网可正常使用仅向研究所内网开放的信息系统、网站、图书馆数字资源等。我院提供 <a href="javascript:alert('暂未开放');">WebVPN</a> 和传统 VPN 两种模式，前者具有免安装、全兼容、即开即用等优点，推荐大家使用。</p>
+			</div>
+			{% if not enabled %}
+				<div class="fb-box box-yellow">
+					<p style="color: orange;" class="box-title">传统 VPN 不可用！</p>
+					<p>为深入贯彻落实网络安全等级保护制度和关键信息基础设施安全保护制度，健全完善国家网络安全综合防控体系，有效防范网络安全威胁，有力处置网络安全事件，严厉打击危害网络安全的违法犯罪活动，切实保障研究所网络安全，所内 VPN 网络需要经过申请—审批的流程方可开通。</p>
+				</div>
+				<div class="fb-box">
+					<p class="box-title">传统模式开通申请表</p>
+					{% set canApply = true %}
+					{% if lastApplication is not null %}
+						{% if lastApplication.result is null %}
+							{% set canApply = false %}
+							<p>您已有一份进行中的申请，不能再提交。</p>
+						{% else %}
+							<p>您之前的申请（提交于 {{ lastApplication.submitTime|date('Y-m-d H:i:s') }}）审核未通过，请重新组织语言。</p>
+						{% endif %}
+					{% endif %}
+					<p style="font-size: .875em;">大部分情况下，WebVPN 已能满足所内师生员工的科研需求。为减小攻击面，VPN 业务需要申请开通。请在下面详细阐述您需要 VPN 业务的理由，内容不多于 1000 字。提交后，管理员会很快审核你的申请，并决定是拒绝还是通过。</p>
+					<form method="POST" action="{{ path('vpn.apply') }}" class="pure-form">
+						<textarea name="statement" style="width: 100%; height: 300px;"{% if not canApply %} disabled{% endif %}>{{ lastStatement }}</textarea>
+						<br />
+						<br />
+						<input type="submit" class="pure-button pure-button-primary" value="提交" />
+					</form>
+				</div>
+			{% else %}
+				<div class="fb-box">
+					连接信息。
+				</div>
+			{% endif %}
+		</div>
+		<div class="side">
+			{% include 'sidebar.html.twig' %}
+		</div>
+	</div>
+{% endblock %}

@@ -8,6 +8,7 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-openssl": "*",
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/orm": "^2.14",
         "symfony/asset": "6.2.*",

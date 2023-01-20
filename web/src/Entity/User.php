@@ -2,6 +2,9 @@
 
 namespace SohaJin\RedPacket2023\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use SohaJin\RedPacket2023\Repository\UserRepository;
@@ -27,6 +30,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
 	private \DateTimeImmutable $createTime;
 
+	#[ORM\Column(type: Types::STRING, length: 20)]
+	private ?string $vpnPassword = null;
+
+	#[ORM\OneToMany(targetEntity: VpnApplication::class, mappedBy: 'user')]
+	#[ORM\OrderBy(['submitTime' => 'DESC'])]
+	private array|Collection|ArrayCollection $vpnApplications;
+
 	public function __construct() {
 		$this->createTime = new \DateTimeImmutable();
 	}
@@ -41,6 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 		return $this->getUsername();
 	}
 
+	public function isVpnEnabled(): bool {
+		return !empty($this->vpnPassword);
+	}
+
+	public function getLastApplication(): ?VpnApplication {
+		return $this->vpnApplications->matching(Criteria::create()
+			->orderBy(['submitTime' => 'DESC'])
+			->setMaxResults(1)
+		)->get(0);
+	}
 
 	public function getId(): int {
 		return $this->id;
@@ -66,5 +86,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 
 	public function getCreateTime(): \DateTimeImmutable {
 		return $this->createTime;
+	}
+
+	public function getVpnPassword(): ?string {
+		return $this->vpnPassword;
+	}
+
+	public function generateVpnPassword(): string {
+		$this->vpnPassword = bin2hex(openssl_random_pseudo_bytes(8));
+		return $this->vpnPassword;
 	}
 }

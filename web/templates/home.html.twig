@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="lr-column">
+		<div class="main">
+			<div class="fb-box box-red">
+				<p style="color: red; text-align: center; margin-top: 0; font-size: 1.125em; font-weight: bold;">新年快乐！</p>
+				<p>农历癸卯兔年马上就要到了，所长办公室在这里祝各位领导、老师、职工、学生新的一年万分快乐，拥有始料不及的运气，会有突如其来的欢喜。</p>
+				<p>另外，欢迎使用支付宝领取红包：<code>{{ rpCode.level1 }}</code>。</p>
+				<p style="text-align: right;">
+					foobar 院新年红包研究所所长办公室
+					<br />
+					2023 年 1 月 21 日
+				</p>
+			</div>
+			<div class="fb-box">
+				您现在没有待办事项。
+			</div>
+		</div>
+		<div class="side">
+			{% include 'sidebar.html.twig' %}
+		</div>
+	</div>
+{% endblock %}

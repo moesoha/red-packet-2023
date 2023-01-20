@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}权限不足{% endblock %}
+
+{% block body %}
+	<div class="big-one center">
+		<h1>! 403 !</h1>
+		<h2>无权访问此页面</h2>
+		<p>可能是您的角色无法访问此页面（某些功能限制只能学生、教职工访问<!--其实就是没做-->），也可能是单纯的不可访问。如果您认为您应当有权限访问，请联系后勤中心或信息技术中心。</p>
+		<p><a href="{{ path('home') }}">返回主页</a></p>
+	</div>
+{% endblock %}

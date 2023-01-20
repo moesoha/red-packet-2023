@@ -7,12 +7,18 @@ use SohaJin\RedPacket2023\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController {
+	#[Route('/', name: 'home')]
+	public function homeAction(): Response {
+		return $this->render('home.html.twig');
+	}
+
 	#[Route('/login', name: 'auth.login')]
 	public function loginAction(
 		TranslatorInterface $translator,
@@ -72,5 +78,25 @@ class HomeController extends AbstractController {
 			'username' => $username ?? '',
 			'xgh' => $xgh ?? ''
 		]);
+	}
+
+	#[Route('/kaoqin', name: 'attendance')]
+	public function attendanceAction(): never {
+		throw new AccessDeniedHttpException();
+	}
+
+	#[Route('/course', name: 'course')]
+	public function courseAction(): never {
+		throw new AccessDeniedHttpException();
+	}
+
+	#[Route('/project', name: 'project')]
+	public function projectAction(): never {
+		throw new AccessDeniedHttpException();
+	}
+
+	#[Route('/caiwu', name: 'finance')]
+	public function financeAction(): never {
+		throw new AccessDeniedHttpException();
 	}
 }

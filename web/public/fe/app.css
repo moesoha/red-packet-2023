@@ -14,6 +14,10 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+p {
+	margin: 0.3em 0;
+	line-height: 1.5;
+}
 
 #container {
 	box-sizing: border-box;
@@ -51,6 +55,20 @@ a:hover {
 	box-sizing: border-box;
 	margin: 8px 0;
 }
+#nav > a {
+	box-sizing: border-box;
+	display: inline-block;
+	color: #333;
+	text-decoration: none;
+	padding: .2em .6em;
+	border: 2px rgba(255, 255, 255, 0) solid;
+	transition: .3s ease all;
+}
+#nav > a:hover {
+	border-right: 2px #999 solid;
+	border-bottom: 2px #999 solid;
+	box-shadow: 2px 2px 3px #888;
+}
 
 #body-content {
 	box-sizing: border-box;
@@ -64,6 +82,51 @@ a:hover {
 	min-height: 400px;
 	padding: .5em .75em;
 	box-shadow: 0 0 3px #888;
+}
+#body-content > .lr-column::after {
+	display: block;
+	clear: both;
+	content: '';
+}
+#body-content > .lr-column > .main {
+	width: calc(68% - 8px);
+	box-sizing: border-box;
+	float: left;
+	padding: 0;
+}
+#body-content > .lr-column > .side {
+	height: unset;
+	width: calc(32% - 8px);
+	box-sizing: border-box;
+	float: right;
+}
+
+.fb-box {
+	margin: 15px 0;
+	padding: .5em .75em;
+	box-shadow: 0 0 3px #888;
+	border: 1px #777 dashed;
+}
+.fb-box:first-child {
+	margin-top: 0;
+}
+.fb-box:last-child {
+	margin-bottom: 0;
+}
+.fb-box.box-red {
+	border-color: #e00;
+	box-shadow: 0 0 3px #e00;
+}
+.fb-box.box-yellow {
+	border-color: #e80;
+	box-shadow: 0 0 3px #e80;
+}
+
+.fb-box > .box-title {
+	text-align: center;
+	margin-top: 0;
+	font-size: 1.125em;
+	font-weight: bold;
 }
 
 .center { text-align: center; }

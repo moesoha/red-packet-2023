@@ -1,0 +1,7 @@
+{% set href = path(to) %}
+<script>
+	alert('{{ message|e('js') }}');
+	window.location.href = '{{ href|e('js') }}';
+</script>
+<p>{{ message }}</p>
+<p>如果页面没有自动跳转，请<a href="{{ href }}">按此</a>。</p>

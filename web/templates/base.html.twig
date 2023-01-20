@@ -14,11 +14,19 @@
             <div id="header">
                 <span id="title">foobar 院新年<span style="color: red;">红包</span>研究所</span>
                 <br />
-                <span id="subtitle">院内综合办公系统 V2.023</span>
+                <span id="subtitle">所内综合办公系统 V2.023</span>
             </div>
-            <div id="nav">
-                this is nav
-            </div>
+            {% if app.user is not null %}<div id="nav">
+                <a href="{{ path('home') }}">首页</a>
+                <a href="#">所内通知</a>
+                <a href="{{ path('course') }}">我的课程</a>
+                <a href="{{ path('attendance') }}">我的考勤</a>
+                <a href="{{ path('vpn.index') }}">内网访问</a>
+                <a href="{{ path('project') }}">课题管理与申报</a>
+                <a href="{{ path('finance') }}">财务与报销</a>
+            </div>{% else %}<div id="nav" style="text-align: right;">
+                <a href="{{ path('auth.login') }}">登录</a>
+            </div>{% endif %}
             <div id="body-content">{% block body %}{% endblock %}</div>
             <div id="footer">
                 <p><a href="https://foobar.ac.cn">foobar 院</a> 信息技术中心&copy; 2023</p>

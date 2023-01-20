@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}找不到页面{% endblock %}
+
+{% block body %}
+	<div class="big-one center">
+		<h1>! 404 !</h1>
+		<h2>这个页面找不到</h2>
+		<p><a href="{{ path('home') }}">返回主页</a></p>
+	</div>
+{% endblock %}
