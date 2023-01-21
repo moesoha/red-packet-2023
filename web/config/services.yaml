@@ -43,3 +43,11 @@ when@dev:
         cidr.reviewer:
             class: PhpIP\IPv6Block
             arguments: ['::1/128']
+
+        cidr.office:
+            class: PhpIP\IPv6Block
+            arguments: ['::1/128']
+
+        cidr.internal:
+            class: PhpIP\IPv6Block
+            arguments: ['::1/128']

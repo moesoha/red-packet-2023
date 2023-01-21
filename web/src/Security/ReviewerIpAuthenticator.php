@@ -4,7 +4,6 @@ namespace SohaJin\RedPacket2023\Security;
 
 use PhpIP\IP;
 use PhpIP\IPBlock;
-use SohaJin\RedPacket2023\DataClass\Reviewer;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

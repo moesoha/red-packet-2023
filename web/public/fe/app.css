@@ -14,8 +14,10 @@ a {
 a:hover {
 	text-decoration: underline;
 }
-p {
+p, li {
 	margin: 0.3em 0;
+}
+p, li {
 	line-height: 1.5;
 }
 

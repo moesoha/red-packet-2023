@@ -7,7 +7,8 @@ readonly class News {
 		private int $id,
 		private string $title,
 		private string $content,
-		private ?int $associatedLevel = null
+		private int $associatedLevel = 0,
+		private bool $showCode = false
 	) {}
 
 	public function getId(): int {
@@ -22,7 +23,11 @@ readonly class News {
 		return $this->content;
 	}
 
-	public function getAssociatedLevel(): ?int {
+	public function getAssociatedLevel(): int {
 		return $this->associatedLevel;
+	}
+
+	public function isShowCode(): bool {
+		return ($this->associatedLevel > 0) && $this->showCode;
 	}
 }

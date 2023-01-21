@@ -2,20 +2,30 @@
 
 {% block title %}{{ news.title }}{% endblock %}
 
+{% set reached = news|levelReached %}
+
 {% block body %}
 	<div class="lr-column">
 		<div class="main">
-			<div class="fb-box{% if news.associatedLevel %} box-red{% endif %}">
+			<div class="fb-box{% if not reached %} box-red{% endif %}">
 				<p class="box-title">{{ news.title }}</p>
 				<hr />
-				{% if news.associatedLevel == 2 %}
+				{% if reached %}
+					{{ news.content|raw }}
+				{% elseif news.associatedLevel == 2 %}
 					<p style="font-size: 1.2em; color: red;">该内容仅限内网查看！</p>
 				{% elseif news.associatedLevel == 3 %}
 					<p style="font-size: 1.2em; color: red;">该内容仅限办公室查看！</p>
 				{% else %}
-					{{ news.content|raw }}
+					未知错误。这个真的是未知错误，请联系 soha 修 bug。
 				{% endif %}
 			</div>
+			{% if reached and news.showCode %}
+				<div class="fb-box box-red">
+					<p class="box-title">专属福利</p>
+					支付宝红包口令：<code>{{ rpCode['level' ~ news.associatedLevel] }}</code>，请至支付宝领取。
+				</div>
+			{% endif %}
 		</div>
 		<div class="side">
 			{% include 'sidebar.html.twig' %}
