@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block body %}
+	<div class="lr-column">
+		<div class="main">
+			<div class="fb-box{% if news.associatedLevel %} box-red{% endif %}">
+				<p class="box-title">{{ news.title }}</p>
+				<hr />
+				{% if news.associatedLevel == 2 %}
+					<p style="font-size: 1.2em; color: red;">该内容仅限内网查看！</p>
+				{% elseif news.associatedLevel == 3 %}
+					<p style="font-size: 1.2em; color: red;">该内容仅限办公室查看！</p>
+				{% else %}
+					{{ news.content|raw }}
+				{% endif %}
+			</div>
+		</div>
+		<div class="side">
+			{% include 'sidebar.html.twig' %}
+		</div>
+	</div>
+{% endblock %}

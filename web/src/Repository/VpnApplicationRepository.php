@@ -16,4 +16,8 @@ class VpnApplicationRepository extends ServiceEntityRepository {
 	public function __construct(ManagerRegistry $registry) {
 		parent::__construct($registry, VpnApplication::class);
 	}
+
+	public function findUnreviewed(): array {
+		return $this->findBy(['result' => null], ['submitTime' => 'ASC']);
+	}
 }

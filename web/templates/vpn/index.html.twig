@@ -19,9 +19,9 @@
 					{% if lastApplication is not null %}
 						{% if lastApplication.result is null %}
 							{% set canApply = false %}
-							<p>您已有一份进行中的申请，不能再提交。</p>
+							<p>您已有一份<a href="{{ path('vpn.show_application', {'id': lastApplication.id}) }}">进行中的申请</a>，不能再提交。</p>
 						{% else %}
-							<p>您之前的申请（提交于 {{ lastApplication.submitTime|date('Y-m-d H:i:s') }}）审核未通过，请重新组织语言。</p>
+							<p>您<a href="{{ path('vpn.show_application', {'id': lastApplication.id}) }}">之前的申请</a>（提交于 {{ lastApplication.submitTime|date('Y-m-d H:i:s') }}）审核未通过，请重新组织语言。</p>
 						{% endif %}
 					{% endif %}
 					<p style="font-size: .875em;">大部分情况下，WebVPN 已能满足所内师生员工的科研需求。为减小攻击面，VPN 业务需要申请开通。请在下面详细阐述您需要 VPN 业务的理由，内容不多于 1000 字。提交后，管理员会很快审核你的申请，并决定是拒绝还是通过。</p>

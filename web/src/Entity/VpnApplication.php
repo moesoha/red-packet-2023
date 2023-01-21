@@ -9,6 +9,7 @@ use SohaJin\RedPacket2023\Repository\VpnApplicationRepository;
 #[ORM\Entity(repositoryClass: VpnApplicationRepository::class)]
 #[ORM\Index(fields: ['user', 'result'])]
 #[ORM\Index(fields: ['user', 'submitTime'])]
+#[ORM\Index(fields: ['result', 'submitTime'])]
 class VpnApplication {
 	#[ORM\Id]
 	#[ORM\GeneratedValue]

@@ -76,6 +76,7 @@
       <path value="$PROJECT_DIR$/web/vendor/symfony/stopwatch" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/asset" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/web/vendor/rlanvin/php-ip" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

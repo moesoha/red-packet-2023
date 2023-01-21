@@ -41,6 +41,7 @@
       <excludeFolder url="file://$MODULE_DIR$/web/vendor/symfony/asset" />
       <excludeFolder url="file://$MODULE_DIR$/web/public/assets" />
       <excludeFolder url="file://$MODULE_DIR$/web/vendor/symfony/translation" />
+      <excludeFolder url="file://$MODULE_DIR$/web/vendor/rlanvin/php-ip" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

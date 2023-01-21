@@ -5,11 +5,15 @@ namespace SohaJin\RedPacket2023\Controller;
 use Doctrine\Persistence\ManagerRegistry;
 use SohaJin\RedPacket2023\Entity\User;
 use SohaJin\RedPacket2023\Entity\VpnApplication;
+use SohaJin\RedPacket2023\Repository\VpnApplicationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route('/vpn', name: 'vpn.')]
@@ -17,6 +21,7 @@ class VpnController extends AbstractController {
 	private const STATEMENT_FLASH = 'vpn:application:statement';
 
 	public function __construct(
+		private readonly VpnApplicationRepository $vpnApplicationRepository,
 		private readonly ManagerRegistry $doctrine
 	) {}
 
@@ -73,7 +78,57 @@ class VpnController extends AbstractController {
 		$this->doctrine->getManager()->flush();
 		return $this->render('alert-jump.html.twig', [
 			'message' => '提交成功，管理员会马上审核',
-			'to' => 'vpn.index'
+			'to' => 'vpn.show_application',
+			'toParam' => ['id' => $application->getId()]
 		]);
+	}
+
+	#[Route('/application/{id}', name: 'show_application')]
+	public function showAction(int $id, UserInterface $user): Response {
+		if(!$id || !($application = $this->vpnApplicationRepository->find($id))) {
+			throw new NotFoundHttpException();
+		}
+		$isReviewer = $this->isGranted('ROLE_REVIEWER');
+		if(!$isReviewer && $user !== $application->getUser()) {
+			throw new AccessDeniedHttpException();
+		}
+
+		return $this->render('vpn/application.html.twig', [
+			'isReviewer' => $isReviewer,
+			'application' => $application
+		]);
+	}
+
+	#[Route('/review/pending', name: 'review.pending')]
+	public function reviewerAllUnreviewedAction(): Response {
+		$this->denyAccessUnlessGranted('ROLE_REVIEWER');
+		return $this->json(array_map(
+			fn(VpnApplication $a) => $a->getId(),
+			$this->vpnApplicationRepository->findUnreviewed()
+		));
+	}
+
+	#[Route('/review', methods: ['POST'], name: 'review.action')]
+	public function reviewerReviewAction(Request $request): Response {
+		$this->denyAccessUnlessGranted('ROLE_REVIEWER');
+		if(
+			!($id = $request->request->getInt('id')) ||
+			!($application = $this->vpnApplicationRepository->find($id))
+		) throw new NotFoundHttpException();
+
+		if($application->getResult() === null) {
+			$accept = $request->request->get('action', 'reject') === 'accept';
+			$application->setResult($accept);
+			$this->doctrine->getManager()->persist($application);
+			if($accept) {
+				$user = $application->getUser();
+				$user->generateVpnPassword();
+				$this->doctrine->getManager()->persist($user);
+			}
+			$this->doctrine->getManager()->flush();
+			return $this->json(['_ok' => 1]);
+		}
+
+		return $this->json(['_ok' => 0]);
 	}
 }

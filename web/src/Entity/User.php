@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
 	private \DateTimeImmutable $createTime;
 
-	#[ORM\Column(type: Types::STRING, length: 20)]
+	#[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
 	private ?string $vpnPassword = null;
 
 	#[ORM\OneToMany(targetEntity: VpnApplication::class, mappedBy: 'user')]

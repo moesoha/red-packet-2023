@@ -4,10 +4,12 @@ namespace SohaJin\RedPacket2023\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
 use SohaJin\RedPacket2023\Entity\User;
+use SohaJin\RedPacket2023\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -77,6 +79,14 @@ class HomeController extends AbstractController {
 			'errors' => $errors,
 			'username' => $username ?? '',
 			'xgh' => $xgh ?? ''
+		]);
+	}
+
+	#[Route('/news/{id}', name: 'news.show')]
+	public function newsAction(int $id, NewsRepository $newsRepository): Response {
+		if(!($news = $newsRepository->find($id))) throw new NotFoundHttpException();
+		return $this->render('news.html.twig', [
+			'news' => $news
 		]);
 	}
 

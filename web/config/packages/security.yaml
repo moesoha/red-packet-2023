@@ -4,16 +4,22 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        SohaJin\RedPacket2023\Entity\User:
+        user:
             entity:
                 class: SohaJin\RedPacket2023\Entity\User
+        reviewer:
+            id: SohaJin\RedPacket2023\DataClass\Reviewer
+
+        main:
+            chain:
+                providers: [reviewer, user]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: SohaJin\RedPacket2023\Entity\User
+            provider: main
             logout:
                 path: auth.logout
             form_login:
@@ -25,6 +31,8 @@ security:
                 csrf_parameter: csrf
                 default_target_path: /
                 always_use_default_target_path: true
+            custom_authenticators:
+                - SohaJin\RedPacket2023\Security\ReviewerIpAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

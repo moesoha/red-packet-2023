@@ -25,3 +25,21 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    cidr.reviewer:
+        class: PhpIP\IPv6Block
+        arguments: ['fd23:fbac:da7a:114::/64']
+
+    cidr.office:
+        class: PhpIP\IPv6Block
+        arguments: ['fd23:0ff1:ce00::/48']
+
+    cidr.internal:
+        class: PhpIP\IPv6Block
+        arguments: ['fc00::/7']
+
+when@dev:
+    services:
+        cidr.reviewer:
+            class: PhpIP\IPv6Block
+            arguments: ['::1/128']

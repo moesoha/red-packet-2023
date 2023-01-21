@@ -6,12 +6,8 @@
 <div class="fb-box">
 	<p style="text-align: center; margin-top: 0; font-size: 1.125em; font-weight: bold;">通知新闻</p>
 	<ul style="padding-left: 1em;">
-		<li><a href="">aa</a></li>
-		<li><a href="">aa</a></li>
-		<li><a href="">aa</a></li>
-		<li><a href="">aa</a></li>
-		<li><a href="">aa</a></li>
-		<li><a href="">aa</a></li>
-		<li><a href="">aa</a></li>
+		{% for news in getLatestNews() %}
+		<li><a href="{{ path('news.show', {'id': news.id}) }}">{{ news.title }}</a></li>
+		{% endfor %}
 	</ul>
 </div>

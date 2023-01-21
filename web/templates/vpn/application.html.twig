@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VPN 开通申请{% endblock %}
+
+{% block body %}
+	<div class="lr-column">
+		<div class="main">
+			<div class="fb-box">
+				<p class="box-title">传统模式开通申请表</p>
+				<p style="font-size: .875em;">提交人：{{ application.user.username }}</p>
+				<p style="font-size: .875em;">
+					该申请表提交于 {{ application.submitTime|date('Y-m-d H:i:s') }}，
+					{% if application.result is null %}
+						尚未被管理员审核。
+					{% elseif not application.result %}
+						且于 {{ application.reviewTime|date('Y-m-d H:i:s') }} 被拒绝。
+					{% else %}
+						管理员已于 {{ application.reviewTime|date('Y-m-d H:i:s') }} 通过申请，您已可以使用传统 VPN 模式。
+					{% endif %}
+				</p>
+				<hr />
+				{{ application.statement|nl2br|raw }}
+			</div>
+			{% if app.environment == 'dev' %}
+				<div class="fb-box">
+					<form id="frm-review" method="POST" action="{{ path('vpn.review.action') }}">
+						<input id="npt-id" type="hidden" name="id" value="{{ application.id }}" />
+						<input id="npt-action" type="hidden" name="action" />
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="accept">通过</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
+					</form>
+				</div>
+			{% endif %}
+		</div>
+		<div class="side">
+			{% include 'sidebar.html.twig' %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+	(function () {
+		var $$ = document.getElementsByClassName('btn-form-action');
+		var i = 0;
+		for(; i < $$.length; i++) {
+			var $ = $$[i];
+			$.addEventListener('submit', fun);
+		}
+	})();
+</script>
+{% endblock %}

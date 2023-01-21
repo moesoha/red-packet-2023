@@ -1,4 +1,4 @@
-{% set href = path(to) %}
+{% set href = path(to, toParam|default({})) %}
 <script>
 	alert('{{ message|e('js') }}');
 	window.location.href = '{{ href|e('js') }}';
