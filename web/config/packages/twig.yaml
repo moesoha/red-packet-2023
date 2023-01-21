@@ -2,9 +2,9 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         rpCode:
-            level1: '%env(RPCODE_LEVEL1)%'
-            level21: '%env(RPCODE_LEVEL21)%'
-            level22: '%env(RPCODE_LEVEL22)%'
+            level1: '%env(int:RPCODE_LEVEL1)%'
+            level2: '%env(int:RPCODE_LEVEL2)%'
+            level3: '%env(int:RPCODE_LEVEL3)%'
 
 when@test:
     twig:

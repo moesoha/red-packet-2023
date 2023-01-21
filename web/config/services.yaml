@@ -4,9 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    env(RPCODE_LEVEL1): 'INS!lv1'
-    env(RPCODE_LEVEL21): 'INS!lv2-1'
-    env(RPCODE_LEVEL22): 'INS!lv2-2'
+    env(RPCODE_LEVEL1): '11451401'
+    env(RPCODE_LEVEL2): '11451402'
+    env(RPCODE_LEVEL3): '11451403'
 
 services:
     # default configuration for services in *this* file
