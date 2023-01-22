@@ -1,0 +1,13 @@
+{
+	"name": "@sohajin/red-packet-2023-reviewer",
+	"version": "1.0.0",
+	"main": "index.mjs",
+	"author": "Soha Jin <soha@lohu.info>",
+	"license": "MIT",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"puppeteer": "^19.5.2"
+	}
+}

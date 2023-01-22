@@ -1,5 +1,5 @@
 <div class="fb-box">
-	<p style="font-weight: bold;">{{ app.user.username }}，您好！</p>
+	<p style="font-weight: bold;">{{ app.user.userIdentifier }}，您好！</p>
 	<p style="font-size: .875em; text-align: right;"><a href="{{ path('auth.logout') }}">退出登录</a></p>
 	<p style="font-size: .75em;">现在是北京时间<br />{{ 'now'|date('Y-m-d H:i:s') }}。</p>
 </div>

@@ -19,14 +19,14 @@
 					{% endif %}
 				</p>
 				<hr />
-				{{ application.statement|nl2br|raw }}
+				{{ application.statement|raw|nl2br }}
 			</div>
 			{% if app.environment == 'dev' %}
 				<div class="fb-box">
 					<form id="frm-review" method="POST" action="{{ path('vpn.review.action') }}">
 						<input id="npt-id" type="hidden" name="id" value="{{ application.id }}" />
 						<input id="npt-action" type="hidden" name="action" />
-						<button class="btn-form-action" data-action="reject">拒绝</button>
+						<button class="btn-form-action" data-action="reject" id="reject-it">拒绝</button>
 						<button class="btn-form-action" data-action="reject">拒绝</button>
 						<button class="btn-form-action" data-action="reject">拒绝</button>
 						<button class="btn-form-action" data-action="reject">拒绝</button>
@@ -49,11 +49,11 @@
 {% block javascript %}
 <script>
 	(function () {
+		var fun = function (e) { e.preventDefault(); document.getElementById('npt-action').value = e.target.getAttribute('data-action'); document.getElementById('frm-review').submit(); };
 		var $$ = document.getElementsByClassName('btn-form-action');
 		var i = 0;
 		for(; i < $$.length; i++) {
-			var $ = $$[i];
-			$.addEventListener('submit', fun);
+			$$[i].addEventListener('click', fun);
 		}
 	})();
 </script>
