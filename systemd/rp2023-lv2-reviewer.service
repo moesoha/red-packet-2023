@@ -1,0 +1,11 @@
+[Unit]
+After=network.target
+
+[Service]
+Type=oneshot
+DynamicUser=true
+WorkingDirectory=/opt/red-packet-2023/level2/reviewer
+ExecStart=/usr/bin/env node index.mjs
+
+[Install]
+WantedBy=multi-user.target
