@@ -34,7 +34,22 @@
 				</div>
 			{% else %}
 				<div class="fb-box">
-					连接信息。
+					<p class="box-title">传统模式连接信息</p>
+					<p><a href="{{ path('vpn.config.ovpn') }}" download="tnhbyjs-vpn.ovpn">OpenVPN 连接文件</a></p>
+					<p>用户名：<code>{{ app.user.username }}</code></p>
+					<p>密码：<code>{{ app.user.vpnPassword }}</code></p>
+					<form method="POST" action="{{ path('vpn.reset_password') }}">
+						<p>如果您不小心泄露了密码，请及时<input type="submit" value="重置密码" />，并用新密码登录。</p>
+					</form>
+					<ol>
+						<li>首先安装<a href="https://openvpn.net/community-downloads/" target="_blank">社区版 OpenVPN</a></li>
+						<li>下载上述 OpenVPN 连接文件</li>
+						<li>打开连接文件，此时 OpenVPN 客户端会提示导入配置文件</li>
+						<li>导入成功后在任务栏托盘找到 OpenVPN 图标，右键点击连接</li>
+						<li>在登录框内输入上述用户名密码，进行登录</li>
+						<li>现在您可以访问内网资源了</li>
+					</ol>
+					<p>注：某些内网服务可能需要修改 DNS 为 <code>fd23:acce:5500:c01::1</code> 才能正常解析内网地址。</p>
 				</div>
 			{% endif %}
 		</div>

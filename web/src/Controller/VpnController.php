@@ -7,6 +7,7 @@ use SohaJin\RedPacket2023\Entity\User;
 use SohaJin\RedPacket2023\Entity\VpnApplication;
 use SohaJin\RedPacket2023\Repository\VpnApplicationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
@@ -39,6 +40,31 @@ class VpnController extends AbstractController {
 			'canApply' => $this->canUserApply($user),
 			'lastApplication' => $user->getLastApplication(),
 			'lastStatement' => $session->getFlashBag()?->get(self::STATEMENT_FLASH)[0] ?? ''
+		]);
+	}
+
+	#[Route('/resetPassword', name: 'reset_password', methods: ['POST'])]
+	public function resetPasswordAction(#[CurrentUser] User $user): Response {
+		if(!$user->isVpnEnabled()) {
+			throw new AccessDeniedHttpException();
+		}
+		$user->generateVpnPassword();
+		$this->doctrine->getManager()->persist($user);
+		$this->doctrine->getManager()->flush();
+		return $this->render('alert-jump.html.twig', [
+			'message' => '密码重置成功，请使用新密码登录 VPN',
+			'to' => 'vpn.index'
+		]);
+	}
+
+	#[Route('/config/ovpn', name: 'config.ovpn')]
+	public function configOvpnAction(#[CurrentUser] User $user, #[Autowire('%vpn.client_config%')] string $ovpnConfig): Response {
+		if(!$user->isVpnEnabled()) {
+			throw new AccessDeniedHttpException();
+		}
+		return new Response($ovpnConfig, headers: [
+			'Content-Type' => 'application/octet-stream',
+			'Content-Disposition' => 'attachment; filename="tnhbyjs-vpn.ovpn"'
 		]);
 	}
 

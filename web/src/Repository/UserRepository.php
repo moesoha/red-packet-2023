@@ -19,7 +19,11 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 		parent::__construct($registry, User::class);
 	}
 
+	public function findOneByUsername(string $username): ?User {
+		return $this->findOneBy(['username' => $username]);
+	}
+
 	public function loadUserByIdentifier(string $identifier): ?UserInterface {
-		return $this->findOneBy(['username' => $identifier]);
+		return $this->findOneByUsername($identifier);
 	}
 }

@@ -7,6 +7,7 @@ parameters:
     env(RPCODE_LEVEL1): '11451401'
     env(RPCODE_LEVEL2): '11451402'
     env(RPCODE_LEVEL3): '11451403'
+    vpn.client_config: '%env(file:VPN_CLIENT_CONFIG)%'
 
 services:
     # default configuration for services in *this* file
@@ -28,7 +29,7 @@ services:
 
     cidr.reviewer:
         class: PhpIP\IPv6Block
-        arguments: ['fd23:fbac:da7a:114::/64']
+        arguments: ['::1/128']
 
     cidr.office:
         class: PhpIP\IPv6Block
