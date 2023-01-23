@@ -3,6 +3,7 @@
 {% block title %}{{ news.title }}{% endblock %}
 
 {% set reached = news|levelReached %}
+{% set level = news.associatedLevel %}
 
 {% block body %}
 	<div class="lr-column">
@@ -12,9 +13,9 @@
 				<hr />
 				{% if reached %}
 					{{ news.content|raw }}
-				{% elseif news.associatedLevel == 2 %}
+				{% elseif level == 2 %}
 					<p style="font-size: 1.2em; color: red;">该内容仅限内网查看！</p>
-				{% elseif news.associatedLevel == 3 %}
+				{% elseif level == 3 %}
 					<p style="font-size: 1.2em; color: red;">该内容仅限办公室查看！</p>
 				{% else %}
 					未知错误。这个真的是未知错误，请联系 soha 修 bug。
@@ -23,7 +24,14 @@
 			{% if reached and news.showCode %}
 				<div class="fb-box box-red">
 					<p class="box-title">专属福利</p>
-					支付宝红包口令：<code>{{ rpCode['level' ~ news.associatedLevel] }}</code>，请至支付宝领取。
+					{% if level == 2 %}
+						<p>支付宝红包口令：<code>{{ rpCode['level2'] }}</code>，请至支付宝领取。</p>
+					{% elseif level == 3 %}
+						<p>支付宝红包口令：<code>{{ rpCode['level3'] }}</code>，请至支付宝领取。</p>
+						<p style="font-size: .875em;">您已经拿到这一关红包，请及时撤销您为了这个红包所做的操作，否则可能会给别的参与者降低难度（笑）。这是这关红包设计时不可避免的 bug。</p>
+					{% else %}
+						未知错误。这个真的是未知错误，请联系 soha 修 bug。
+					{% endif %}
 				</div>
 			{% endif %}
 		</div>

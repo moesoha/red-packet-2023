@@ -4,6 +4,7 @@ namespace SohaJin\RedPacket2023\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
 use SohaJin\RedPacket2023\Entity\User;
+use SohaJin\RedPacket2023\EventListener\IpCheckerAndLogger;
 use SohaJin\RedPacket2023\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,8 +68,12 @@ class HomeController extends AbstractController {
 				$errors['username'][] = '用户名不能包含符号';
 			}
 			if(empty($errors)) {
+				$session = $request->getSession();
 				$user = (new User())->setUsername($username);
 				$user->setPassword($passwordHasher->hashPassword($user, $password));
+				if(!empty($time = $session->get(IpCheckerAndLogger::SESSION_FIRST_ACCESS_TIME, 0))) {
+					$user->setFirstAccessTime((new \DateTimeImmutable())->setTimestamp((int)$time));
+				}
 				$doctrine->getManager()->persist($user);
 				$doctrine->getManager()->flush();
 				$this->addFlash('isRegistered', '1');

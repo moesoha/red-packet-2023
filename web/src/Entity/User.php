@@ -30,6 +30,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
 	private \DateTimeImmutable $createTime;
 
+	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+	private ?\DateTimeImmutable $firstAccessTime = null;
+
+	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+	private ?\DateTimeImmutable $internalAccessTime = null;
+
+	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+	private ?\DateTimeImmutable $officeAccessTime = null;
+
 	#[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
 	private ?string $vpnPassword = null;
 
@@ -86,6 +95,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 
 	public function getCreateTime(): \DateTimeImmutable {
 		return $this->createTime;
+	}
+
+	public function getFirstAccessTime(): ?\DateTimeImmutable {
+		return $this->firstAccessTime;
+	}
+
+	public function setFirstAccessTime(?\DateTimeImmutable $firstAccessTime): self {
+		$this->firstAccessTime = $firstAccessTime;
+		return $this;
+	}
+
+	public function getInternalAccessTime(): ?\DateTimeImmutable {
+		return $this->internalAccessTime;
+	}
+
+	public function setInternalAccessTime(?\DateTimeImmutable $internalAccessTime): self {
+		$this->internalAccessTime = $internalAccessTime;
+		return $this;
+	}
+
+	public function getOfficeAccessTime(): ?\DateTimeImmutable {
+		return $this->officeAccessTime;
+	}
+
+	public function setOfficeAccessTime(?\DateTimeImmutable $officeAccessTime): self {
+		$this->officeAccessTime = $officeAccessTime;
+		return $this;
 	}
 
 	public function getVpnPassword(): ?string {
