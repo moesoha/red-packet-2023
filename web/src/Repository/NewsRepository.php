@@ -9,7 +9,7 @@ class NewsRepository {
 	private const DATA_ID_SHIFT = 114514;
 	private const DATA = [
 		[self::DATA_ID_SHIFT + 0, '财务处2022年底采购相关安排', <<<EOF
-<p>各学院、各部门：</p>
+<p>各部门：</p>
 <p>每年 12 月份，财务处需向 foobar 院申请结转本研究所该年度未完成支付的采购项目，以便下年度进行支付。为了在申请截止时间前顺利完成该工作，同时保证年底到期经费采购项目的顺利支付，现将年底采购受理时间节点通知如下：</p>
 <ol>
 	<li>foobar 院采购项目申请受理截止日期为 2022 年 11 月 15 日，foobar 院采购支付申请受理截止时间为 2022 年 11 月 25 日；</li>
