@@ -1,0 +1,14 @@
+$TTL 30
+ilb.luogu.org.cn.	IN	SOA	ns1.tnhbyjs.hb.lohu.info.	soha.lohu.info. (
+	2023012300 ; Serial
+	10800      ; refresh after 3 hours
+	3600       ; retry after 1 hour
+	86400      ; expire after 1 week
+	86400      ; minimum TTL of 1 day
+)
+
+; Name Server
+@	IN	NS	ns1.tnhbyjs.hb.lohu.info.
+ns1	IN	AAAA	fd23:fbac:da7a:1:53::
+
+@	IN	AAAA	fd23:fbac:da7a:1:3eb::
