@@ -1,13 +1,13 @@
 import puppeteer from 'puppeteer';
 
-const url = path => `https://[::1]:8082${path}`;
+const url = path => `http://[::1]:8082${path}`;
 
 const pendingIds = new Promise(async (resolve, reject) => {
 	const browser = await puppeteer.launch();
 	try {
 		const page = await browser.newPage();
 		await page.setExtraHTTPHeaders({
-			'x-rp2023-reviewer': '1'
+			'x-hb2023-reviewer': '1'
 		});
 		page.on('response', async response => {
 			if(response.status() !== 200) {
@@ -29,7 +29,7 @@ const pendingIds = new Promise(async (resolve, reject) => {
 	page.setDefaultTimeout(2000);
 	page.setDefaultNavigationTimeout(2000);
 	await page.setExtraHTTPHeaders({
-		'x-rp2023-reviewer': '1'
+		'x-hb2023-reviewer': '1'
 	});
 	for(const id of await pendingIds) {
 		console.log(`handling application #${id}`)

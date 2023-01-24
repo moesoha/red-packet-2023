@@ -23,7 +23,7 @@ class ReviewerIpAuthenticator extends AbstractAuthenticator {
 	) {}
 
 	public function supports(Request $request): ?bool {
-		return $request->headers->has('x-rp2023-reviewer');
+		return $request->headers->has('x-hb2023-reviewer');
 	}
 
 	public function authenticate(Request $request): Passport {

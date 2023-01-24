@@ -30,8 +30,8 @@ cd web
 composer install
 
 cd /etc/systemd/system
-ln -s /opt/red-packet-2023/level2/rp2023-lv2-reviewer.service
-ln -s /opt/red-packet-2023/level2/rp2023-lv2-reviewer.timer
+ln -s /opt/red-packet-2023/level2/hb2023-lv2-reviewer.service
+ln -s /opt/red-packet-2023/level2/hb2023-lv2-reviewer.timer
 
 cd /etc/bind
 vim named.conf.options
