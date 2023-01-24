@@ -5,6 +5,7 @@ html, body {
 }
 body {
 	width: 100%;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 a {
@@ -22,6 +23,7 @@ p, li {
 }
 
 #container {
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 800px;
@@ -32,8 +34,10 @@ p, li {
 #header {
 	text-align: center;
 	width: 100%;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	border: 1px #000 solid;
+	-moz-box-shadow: 3px 5px 5px #888;
 	box-shadow: 3px 5px 5px #888;
 	padding: 15px 20px;
 }
@@ -48,6 +52,7 @@ p, li {
 	font-size: .75em;
 	text-align: center;
 	width: 100%;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	padding: 4px 0;
 }
@@ -69,6 +74,7 @@ p, li {
 #nav > a:hover {
 	border-right: 2px #999 solid;
 	border-bottom: 2px #999 solid;
+	-moz-box-shadow: 2px 2px 3px #888;
 	box-shadow: 2px 2px 3px #888;
 }
 
@@ -83,6 +89,7 @@ p, li {
 	border: 1px #777 dashed;
 	min-height: 400px;
 	padding: .5em .75em;
+	-moz-box-shadow: 0 0 3px #888;
 	box-shadow: 0 0 3px #888;
 }
 #body-content > .lr-column::after {
@@ -106,6 +113,7 @@ p, li {
 .fb-box {
 	margin: 15px 0;
 	padding: .5em .75em;
+	-moz-box-shadow: 0 0 3px #888;
 	box-shadow: 0 0 3px #888;
 	border: 1px #777 dashed;
 }
@@ -117,10 +125,12 @@ p, li {
 }
 .fb-box.box-red {
 	border-color: #e00;
+	-moz-box-shadow: 0 0 3px #e00;
 	box-shadow: 0 0 3px #e00;
 }
 .fb-box.box-yellow {
 	border-color: #e80;
+	-moz-box-shadow: 0 0 3px #e80;
 	box-shadow: 0 0 3px #e80;
 }
 
