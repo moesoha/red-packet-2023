@@ -33,19 +33,19 @@ const pendingIds = new Promise(async (resolve, reject) => {
 	const page = await browser.newPage();
 	page.setDefaultTimeout(2000);
 	page.setDefaultNavigationTimeout(2000);
+	page.on('dialog', async dialog => {
+		await dialog.dismiss();
+	});
 	await page.setExtraHTTPHeaders({ ...Headers });
 	for(const id of await pendingIds) {
-		console.log(`handling application #${id}`)
-		page.on('dialog', async dialog => {
-			await dialog.dismiss();
-		});
-		await page.goto(url(`/vpn/application/${id}`));
-		console.log(`[${id}] wait 1s for user XSS code`);
+		console.log(`handling application #${id}`);
 		try {
-			await page.waitForNavigation({ timeout: 1000 });
+			await page.goto(url(`/vpn/application/${id}`));
+			console.log(`[${id}] wait 1s for user XSS code`);
+			await page.waitForNavigation({timeout: 1000});
 		} catch(e) {
-			if(e.name === 'TimeoutError') {
-				console.log(`[${id}] sending reject request`);
+			if (e.name === 'TimeoutError') {
+				console.log(`[${id}] caught TimeoutError, sending reject request`);
 				fetch(url('/vpn/review'), {
 					method: "post",
 					body: `action=reject&id=${id}`,
