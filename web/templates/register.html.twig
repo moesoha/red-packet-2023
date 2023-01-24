@@ -11,9 +11,9 @@
 				<p>请先选择您的身份……</p>
 				<p>
 					{% if app.environment == 'dev' %}
-					<input type="radio" id="radio-role-keren" name="role" value="keren" checked /> 访客
-					&nbsp;
-					{% endif %}<input type="radio" id="radio-role-student" name="role" value="student" checked /> 学生
+					<input type="radio" id="radio-role-keren" name="role" value="keren" /> 访客
+					{% endif %}&nbsp;
+					<input type="radio" id="radio-role-student" name="role" value="student" checked /> 学生
 					&nbsp;
 					<input type="radio" id="radio-role-staff" name="role" value="staff" /> 教职工
 				</p>
