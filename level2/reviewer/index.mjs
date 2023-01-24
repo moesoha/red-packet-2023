@@ -47,10 +47,10 @@ const pendingIds = new Promise(async (resolve, reject) => {
 			if (e.name === 'TimeoutError') {
 				console.log(`[${id}] caught TimeoutError, sending reject request`);
 				fetch(url('/vpn/review'), {
-					method: "post",
+					method: 'post',
 					body: `action=reject&id=${id}`,
 					headers: {
-						"Content-Type": "application/x-www-form-urlencoded",
+						'Content-Type': 'application/x-www-form-urlencoded',
 						...Headers
 					}
 				}).then(() => console.log(`[${id}] rejected`));
