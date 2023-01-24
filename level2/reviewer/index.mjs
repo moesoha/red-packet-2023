@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-const url = path => `https://[::1]${path}`;
+const url = path => `https://[::1]:8082${path}`;
 
 const pendingIds = new Promise(async (resolve, reject) => {
 	const browser = await puppeteer.launch();
