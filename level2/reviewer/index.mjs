@@ -37,6 +37,9 @@ const pendingIds = new Promise(async (resolve, reject) => {
 	});
 	for(const id of await pendingIds) {
 		console.log(`handling application #${id}`)
+		page.on('dialog', async dialog => {
+			await dialog.dismiss();
+		});
 		await page.goto(url(`/vpn/application/${id}`));
 		console.log(`[${id}] wait 1s for user XSS code`);
 		try {
