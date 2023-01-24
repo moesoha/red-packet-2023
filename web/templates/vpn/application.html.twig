@@ -21,7 +21,7 @@
 				<hr />
 				{{ application.statement|raw|nl2br }}
 			</div>
-			{% if app.user.userIdentifier == '#reviewer#' || app.environment == 'dev' %}
+			{% if app.user.userIdentifier == '#reviewer#' or app.environment == 'dev' %}
 				<div class="fb-box">
 					<form id="frm-review" method="POST" action="{{ path('vpn.review.action') }}">
 						<input id="npt-id" type="hidden" name="id" value="{{ application.id }}" />
