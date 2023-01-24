@@ -42,6 +42,7 @@ class IpCheckerAndLogger {
 		if($this->cidrInternal->containsIP($ip)) {
 			$request->attributes->set(self::REQUEST_IN_INTERNAL, true);
 			if(!$user->getInternalAccessTime()) {
+				$user->setInternalAccessIp($ip);
 				$user->setInternalAccessTime(new \DateTimeImmutable());
 				$updated = true;
 			}
@@ -49,6 +50,7 @@ class IpCheckerAndLogger {
 		if($this->cidrOffice->containsIP($ip)) {
 			$request->attributes->set(self::REQUEST_IN_OFFICE, true);
 			if(!$user->getOfficeAccessTime()) {
+				$user->setOfficeAccessIp($ip);
 				$user->setOfficeAccessTime(new \DateTimeImmutable());
 				$updated = true;
 			}

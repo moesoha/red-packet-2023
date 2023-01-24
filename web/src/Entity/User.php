@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use PhpIP\IP;
 use SohaJin\RedPacket2023\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,14 +31,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
 	private \DateTimeImmutable $createTime;
 
+	#[ORM\Column(type: 'inet', nullable: true)]
+	private ?IP $createIp = null;
+
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
 	private ?\DateTimeImmutable $firstAccessTime = null;
 
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
 	private ?\DateTimeImmutable $internalAccessTime = null;
 
+	#[ORM\Column(type: 'inet', nullable: true)]
+	private ?IP $internalAccessIp = null;
+
 	#[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
 	private ?\DateTimeImmutable $officeAccessTime = null;
+
+	#[ORM\Column(type: 'inet', nullable: true)]
+	private ?IP $officeAccessIp = null;
 
 	#[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
 	private ?string $vpnPassword = null;
@@ -131,5 +141,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	public function generateVpnPassword(): string {
 		$this->vpnPassword = bin2hex(openssl_random_pseudo_bytes(8));
 		return $this->vpnPassword;
+	}
+
+	public function getCreateIp(): ?IP {
+		return $this->createIp;
+	}
+
+	public function setCreateIp(?IP $createIp): self {
+		$this->createIp = $createIp;
+		return $this;
+	}
+
+	public function getInternalAccessIp(): ?IP {
+		return $this->internalAccessIp;
+	}
+
+	public function setInternalAccessIp(?IP $internalAccessIp): self {
+		$this->internalAccessIp = $internalAccessIp;
+		return $this;
+	}
+
+	public function getOfficeAccessIp(): ?IP {
+		return $this->officeAccessIp;
+	}
+
+	public function setOfficeAccessIp(?IP $officeAccessIp): self {
+		$this->officeAccessIp = $officeAccessIp;
+		return $this;
 	}
 }

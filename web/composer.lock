@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7425525e3fda6e8663233e3e18a7f5f",
+    "content-hash": "a8002c89c191933093ee206859757d78",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -1371,6 +1371,55 @@
                 "source": "https://github.com/rlanvin/php-ip/tree/v3.0.0"
             },
             "time": "2022-03-02T08:51:37+00:00"
+        },
+        {
+            "name": "sunchaser/doctrine-pgsql-ip",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sunchaserinfo/doctrine-pgsql-ip.git",
+                "reference": "05cb486eab8ea2e9d6e3487b7ff2490936b19b8e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sunchaserinfo/doctrine-pgsql-ip/zipball/05cb486eab8ea2e9d6e3487b7ff2490936b19b8e",
+                "reference": "05cb486eab8ea2e9d6e3487b7ff2490936b19b8e",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^3.0",
+                "php": "^8.0",
+                "rlanvin/php-ip": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SunChaser\\Doctrine\\PgSql\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Archer",
+                    "email": "sunchaser@sunchaser.info"
+                }
+            ],
+            "description": "Doctrine type handlers for PostgreSQL's inet and cidr",
+            "keywords": [
+                "cidr",
+                "doctrine",
+                "inet",
+                "ip address",
+                "postgresql"
+            ],
+            "support": {
+                "issues": "https://github.com/sunchaserinfo/doctrine-pgsql-ip/issues",
+                "source": "https://github.com/sunchaserinfo/doctrine-pgsql-ip/tree/2.0.0"
+            },
+            "time": "2022-06-15T00:11:44+00:00"
         },
         {
             "name": "symfony/asset",

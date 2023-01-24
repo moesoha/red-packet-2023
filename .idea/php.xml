@@ -77,6 +77,7 @@
       <path value="$PROJECT_DIR$/web/vendor/symfony/asset" />
       <path value="$PROJECT_DIR$/web/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/web/vendor/rlanvin/php-ip" />
+      <path value="$PROJECT_DIR$/web/vendor/sunchaser/doctrine-pgsql-ip" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

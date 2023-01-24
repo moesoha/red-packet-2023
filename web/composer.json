@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/orm": "^2.14",
         "rlanvin/php-ip": "^3.0",
+        "sunchaser/doctrine-pgsql-ip": "^2.0",
         "symfony/asset": "6.2.*",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",

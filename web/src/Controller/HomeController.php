@@ -3,6 +3,7 @@
 namespace SohaJin\RedPacket2023\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
+use PhpIP\IP;
 use SohaJin\RedPacket2023\Entity\User;
 use SohaJin\RedPacket2023\EventListener\IpCheckerAndLogger;
 use SohaJin\RedPacket2023\Repository\NewsRepository;
@@ -73,6 +74,11 @@ class HomeController extends AbstractController {
 				$user->setPassword($passwordHasher->hashPassword($user, $password));
 				if(!empty($time = $session->get(IpCheckerAndLogger::SESSION_FIRST_ACCESS_TIME, 0))) {
 					$user->setFirstAccessTime((new \DateTimeImmutable())->setTimestamp((int)$time));
+				}
+				if($clientIp = $request->getClientIp()) {
+					try {
+						$user->setCreateIp(IP::create($clientIp));
+					} catch(\InvalidArgumentException) {}
 				}
 				$doctrine->getManager()->persist($user);
 				$doctrine->getManager()->flush();
