@@ -2,7 +2,7 @@
 Description="Red Packet 2023 - Level 2: Auto rejecter"
 
 [Timer]
-OnUnitActiveSec=45s
+OnUnitActiveSec=18s
 OnBootSec=2min
 
 [Install]
