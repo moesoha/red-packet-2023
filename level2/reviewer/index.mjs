@@ -9,13 +9,17 @@ const pendingIds = new Promise(async (resolve, reject) => {
 		await page.setExtraHTTPHeaders({
 			'x-hb2023-reviewer': '1'
 		});
+		let responseResolver;
+		const responseResolved = new Promise(r => { responseResolver = r; });
 		page.on('response', async response => {
 			if(response.status() !== 200) {
 				throw new Error(await response.text());
 			}
 			resolve(JSON.parse(await response.text()));
+			responseResolver();
 		})
 		await page.goto(url('/vpn/review/pending'));
+		await responseResolved;
 	} catch(e) {
 		reject(e);
 	} finally {
