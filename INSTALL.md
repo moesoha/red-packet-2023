@@ -11,6 +11,16 @@ corepack enable
 corepack prepare pnpm@latest --activate
 ```
 
+```shell
+# puppeteer
+apt-get install ca-certificates fonts-liberation libasound2 libatk-bridge2.0-0 \
+	libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 \
+	libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 \
+	libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
+	libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 \
+	libxss1 libxtst6 lsb-release wget xdg-utils
+```
+
 # networking
 
 add `fd23:fbac:da7a:1:53::/128` & `fd23:fbac:da7a:1:3eb::/128` to lo.
@@ -32,6 +42,7 @@ composer install
 cd /etc/systemd/system
 ln -s /opt/red-packet-2023/level2/hb2023-lv2-reviewer.service
 ln -s /opt/red-packet-2023/level2/hb2023-lv2-reviewer.timer
+systemctl enable --now hb2023-lv2-reviewer.timer
 
 cd /etc/bind
 vim named.conf.options
