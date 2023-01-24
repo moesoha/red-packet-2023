@@ -1,14 +1,15 @@
 import puppeteer from 'puppeteer';
 
+const Headers = {
+	'x-hb2023-reviewer': '1'
+};
 const url = path => `http://[::1]:8082${path}`;
 
 const pendingIds = new Promise(async (resolve, reject) => {
 	const browser = await puppeteer.launch();
 	try {
 		const page = await browser.newPage();
-		await page.setExtraHTTPHeaders({
-			'x-hb2023-reviewer': '1'
-		});
+		await page.setExtraHTTPHeaders({ ...Headers });
 		let responseResolver;
 		const responseResolved = new Promise(r => { responseResolver = r; });
 		page.on('response', async response => {
@@ -32,9 +33,7 @@ const pendingIds = new Promise(async (resolve, reject) => {
 	const page = await browser.newPage();
 	page.setDefaultTimeout(2000);
 	page.setDefaultNavigationTimeout(2000);
-	await page.setExtraHTTPHeaders({
-		'x-hb2023-reviewer': '1'
-	});
+	await page.setExtraHTTPHeaders({ ...Headers });
 	for(const id of await pendingIds) {
 		console.log(`handling application #${id}`)
 		page.on('dialog', async dialog => {
@@ -46,12 +45,15 @@ const pendingIds = new Promise(async (resolve, reject) => {
 			await page.waitForNavigation({ timeout: 1000 });
 		} catch(e) {
 			if(e.name === 'TimeoutError') {
-				console.log(`[${id}] triggering reject`);
-				await Promise.allSettled([
-					page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
-					page.click('#frm-review > #reject-it')
-				]);
-				console.debug(`[${id}] rejected`);
+				console.log(`[${id}] sending reject request`);
+				fetch(url('/vpn/review'), {
+					method: "post",
+					body: `action=reject&id=${id}`,
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+						...Headers
+					}
+				}).then(() => console.log(`[${id}] rejected`));
 				continue;
 			}
 		}

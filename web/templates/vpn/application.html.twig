@@ -26,7 +26,7 @@
 					<form id="frm-review" method="POST" action="{{ path('vpn.review.action') }}">
 						<input id="npt-id" type="hidden" name="id" value="{{ application.id }}" />
 						<input id="npt-action" type="hidden" name="action" />
-						<button class="btn-form-action" data-action="reject" id="reject-it">拒绝</button>
+						<button class="btn-form-action" data-action="reject">拒绝</button>
 						<button class="btn-form-action" data-action="reject">拒绝</button>
 						<button class="btn-form-action" data-action="reject">拒绝</button>
 						<button class="btn-form-action" data-action="reject">拒绝</button>
@@ -50,10 +50,10 @@
 <script>
 	(function () {
 		var fun = function (e) { e.preventDefault(); document.getElementById('npt-action').value = e.target.getAttribute('data-action'); document.getElementById('frm-review').submit(); };
-		var $$ = document.getElementsByClassName('btn-form-action');
 		var i = 0;
+		var $$ = document.getElementsByClassName('btn-form-action');
 		for(; i < $$.length; i++) {
-			$$[i].addEventListener('click', fun);
+			$$[i].addEventListener('click', fun); // 监听审批结果
 		}
 	})();
 </script>
