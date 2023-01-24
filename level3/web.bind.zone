@@ -1,5 +1,5 @@
 $TTL 30
-ilb.luogu.org.cn.	IN	SOA	ns1.tnhbyjs.hb.lohu.info.	soha.lohu.info. (
+tnhbyjs.hb.lohu.info.	IN	SOA	ns1.tnhbyjs.hb.lohu.info.	soha.lohu.info. (
 	2023012300 ; Serial
 	10800      ; refresh after 3 hours
 	3600       ; retry after 1 hour
