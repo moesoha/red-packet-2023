@@ -7,6 +7,7 @@ use PhpIP\IP;
 use SohaJin\RedPacket2023\Entity\User;
 use SohaJin\RedPacket2023\EventListener\IpCheckerAndLogger;
 use SohaJin\RedPacket2023\Repository\NewsRepository;
+use SohaJin\RedPacket2023\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +41,7 @@ class HomeController extends AbstractController {
 	#[Route('/zizhureg', name: 'auth.register')]
 	public function registerAction(
 		Request $request,
+		UserRepository $userRepository,
 		ManagerRegistry $doctrine,
 		UserPasswordHasherInterface $passwordHasher
 	): Response {
@@ -67,6 +69,8 @@ class HomeController extends AbstractController {
 				$errors['username'][] = '用户名不能以数字开头';
 			} else if(preg_match('/[~`!@#$%^&*()\-=+{}[\]|\\\:;"\'<>,.?\/]/', $username)) {
 				$errors['username'][] = '用户名不能包含符号';
+			} else if($userRepository->findOneByUsername($username)) {
+				$errors['username'][] = '用户名已存在';
 			}
 			if(empty($errors)) {
 				$session = $request->getSession();
