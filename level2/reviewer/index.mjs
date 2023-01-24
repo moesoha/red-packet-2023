@@ -45,7 +45,7 @@ const pendingIds = new Promise(async (resolve, reject) => {
 			if(e.name === 'TimeoutError') {
 				console.log(`[${id}] triggering reject`);
 				await Promise.allSettled([
-					page.waitForNavigation(),
+					page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
 					page.click('#frm-review > #reject-it')
 				]);
 				console.debug(`[${id}] rejected`);
