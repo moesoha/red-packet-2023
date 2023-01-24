@@ -18,7 +18,8 @@ class NewsExtension extends AbstractExtension {
 
 	public function getFunctions(): array {
 		return [
-			new TwigFunction('getLatestNews', fn() => $this->newsRepository->findLatest())
+			new TwigFunction('getLatestNews', fn() => $this->newsRepository->findLatest()),
+			new TwigFunction('getRequestLevel', [$this, 'getRequestLevel'])
 		];
 	}
 
@@ -28,14 +29,17 @@ class NewsExtension extends AbstractExtension {
 		];
 	}
 
-	public function checkLevelReached(News $news): bool {
-		if(!($request = $this->requestStack->getMainRequest())) return false;
-		$level = 0;
+	public function getRequestLevel(): int {
+		if(!($request = $this->requestStack->getMainRequest())) return 0;
 		if($request->attributes->get(IpCheckerAndLogger::REQUEST_IN_OFFICE, false)) {
-			$level = 3;
+			return 3;
 		} else if($request->attributes->get(IpCheckerAndLogger::REQUEST_IN_INTERNAL, false)) {
-			$level = 2;
+			return 2;
 		}
-		return $level >= $news->getAssociatedLevel();
+		return 0;
+	}
+
+	public function checkLevelReached(News $news): bool {
+		return $this->getRequestLevel() >= $news->getAssociatedLevel();
 	}
 }

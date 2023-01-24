@@ -1,6 +1,9 @@
 <div class="fb-box">
 	<p style="font-weight: bold;">{{ app.user.userIdentifier }}，您好！</p>
 	<p style="font-size: .875em; text-align: right;"><a href="{{ path('auth.logout') }}">退出登录</a></p>
+
+	{% set accessLevel = { 3: '办公室', 2: '内网' } %}
+	<p style="font-size: .75em;">您正在从{{ accessLevel[getRequestLevel()]|default('外网') }}访问。</p>
 	<p style="font-size: .75em;">现在是北京时间<br />{{ 'now'|date('Y-m-d H:i:s') }}。</p>
 </div>
 <div class="fb-box">
