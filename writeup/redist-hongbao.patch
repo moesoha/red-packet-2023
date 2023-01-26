@@ -1,0 +1,74 @@
+Subject: [PATCH] redistribute hongbao after writeup released
+---
+Index: web/src/Controller/HomeController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web/src/Controller/HomeController.php b/web/src/Controller/HomeController.php
+--- a/web/src/Controller/HomeController.php	(revision 6592e68d56f37445e9f2f85ac64b9ac77cd804dc)
++++ b/web/src/Controller/HomeController.php	(date 1674732534817)
+@@ -21,7 +21,18 @@
+ class HomeController extends AbstractController {
+ 	#[Route('/', name: 'home')]
+ 	public function homeAction(): Response {
+-		return $this->render('home.html.twig');
++		$baseTime = new \DateTimeImmutable("2023-01-26T17:00:00+0800");
++		/** @var User $user */
++		if(($user = $this->getUser()) && $user instanceof User) {
++			if(($time = $user->getOfficeAccessTime()) && ($time < $baseTime)) {
++				$code = '[过了第三关的就俩人，都熟人，嗖蛤会亲自给的]';
++			} else if(($time = $user->getLastApprovedApplication()?->getSubmitTime()) && ($time < $baseTime)) {
++				$code = '兔xxxxxxxx';
++			} else if($user->getCreateTime() < $baseTime) {
++				$code = '兔yyyyyyyy';
++			}
++		}
++		return $this->render('home.html.twig', ['code' => $code ?? null]);
+ 	}
+ 
+ 	#[Route('/login', name: 'auth.login')]
+Index: web/src/Entity/User.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web/src/Entity/User.php b/web/src/Entity/User.php
+--- a/web/src/Entity/User.php	(revision 6592e68d56f37445e9f2f85ac64b9ac77cd804dc)
++++ b/web/src/Entity/User.php	(date 1674732445263)
+@@ -81,6 +81,14 @@
+ 		)->get(0);
+ 	}
+ 
++	public function getLastApprovedApplication(): ?VpnApplication {
++		return $this->vpnApplications->matching(Criteria::create()
++			->where(Criteria::expr()->eq('result', true))
++			->orderBy(['submitTime' => 'DESC'])
++			->setMaxResults(1)
++		)->get(0);
++	}
++
+ 	public function getId(): int {
+ 		return $this->id;
+ 	}
+Index: web/templates/home.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web/templates/home.html.twig b/web/templates/home.html.twig
+--- a/web/templates/home.html.twig	(revision 6592e68d56f37445e9f2f85ac64b9ac77cd804dc)
++++ b/web/templates/home.html.twig	(date 1674732445258)
+@@ -16,6 +16,12 @@
+ 			<div class="fb-box">
+ 				您现在没有待办事项。
+ 			</div>
++			{% if code is not empty %}
++				<div class="fb-box box-red">
++					<p class="box-title">感谢支持</p>
++					<p>感谢您对 Soha 新年红包游戏的支持，现将没有发完的红包重新发放给你：请使用 {{ code }} 领取。</p>
++				</div>
++			{% endif %}
+ 		</div>
+ 		<div class="side">
+ 			{% include 'sidebar.html.twig' %}
