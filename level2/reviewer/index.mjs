@@ -45,19 +45,19 @@ const pendingIds = new Promise(async (resolve, reject) => {
 			await page.waitForNavigation({timeout: 1000});
 		} catch(e) {
 			if (e.name === 'TimeoutError') {
-				console.log(`[${id}] caught TimeoutError, sending reject request`);
-				fetch(url('/vpn/review'), {
-					method: 'post',
-					body: `action=reject&id=${id}`,
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded',
-						...Headers
-					}
-				}).then(() => console.log(`[${id}] rejected`));
-				continue;
+				console.log(`[${id}] caught TimeoutError, means no navigation detected, ignoring`);
+			} else {
+				console.error(e);
 			}
 		}
-		console.log(`[${id}] navigation detected, no reject action`);
+		fetch(url('/vpn/review'), {
+			method: 'post',
+			body: `action=reject&id=${id}`,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				...Headers
+			}
+		}).then(() => console.log(`[${id}] reject sent anyway`));
 	}
 	await browser.close();
 })();
