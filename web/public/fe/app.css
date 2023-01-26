@@ -81,13 +81,14 @@ p, li {
 #body-content {
 	box-sizing: border-box;
 	width: 100%;
-	min-height: 400px;
+	min-height: 260px;
 }
 #body-content > .big-one {
 	width: 100%;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	border: 1px #777 dashed;
-	min-height: 400px;
+	min-height: 260px;
 	padding: .5em .75em;
 	-moz-box-shadow: 0 0 3px #888;
 	box-shadow: 0 0 3px #888;
@@ -98,14 +99,14 @@ p, li {
 	content: '';
 }
 #body-content > .lr-column > .main {
-	width: calc(68% - 8px);
+	width: 67%;
 	box-sizing: border-box;
 	float: left;
 	padding: 0;
 }
 #body-content > .lr-column > .side {
 	height: unset;
-	width: calc(32% - 8px);
+	width: 31%;
 	box-sizing: border-box;
 	float: right;
 }
